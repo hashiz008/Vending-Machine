@@ -8,7 +8,7 @@ RecursionCS project2-1 Vending Machine
 **<img width="800" alt="スクリーンショット 2022-02-21 15 03 03" src="https://user-images.githubusercontent.com/63139730/154898173-6a9e5a70-859a-4949-af36-a50a9c909380.png">**
 
 ## Usage
-**仕事や人間関係で悩んでいるときにこの壁紙を見ることでモチベーションが高められます！**
+**好きな数字を押すと商品がスライドして表示されます。購入ボタンを押すと金額、商品名がアラート表示されます。**
 
 ## Reference
 **<a href='https://motivational-speech-wallpaper.vercel.app/'>Motivational Speech Wallpaperへようこそ</a>**
