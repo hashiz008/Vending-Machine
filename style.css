@@ -1,12 +1,22 @@
+.imgDate {
+    height: 100%;
+    width: 80%;
+    padding-left: 30%;
+}
+
+.pushBtn {
+    font-size:40px;
+}
+
 .deplete-animation{
-    animation: deplete 1.5s linear forwards;
+    animation: deplete 1s linear forwards;
 }
 
 .expand-animation{
-    animation: deplete 1.5s linear reverse forwards;
+    animation: deplete 1s linear reverse forwards;
 }
 
-@keyframes deplete {
+@keyframes    deplete {
     0%{
         width: 100%;
         opacity: 1;

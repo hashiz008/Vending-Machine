@@ -1,177 +1,169 @@
-class Item {
-  constructor(name, price, img) {
-    this.name = name;
-    this.price = price;
-    this.img = img;
+class Product {
+  constructor(name,price,img) {
+      this.name = name;
+      this.price = price;
+      this.img = img;
   }
 }
 
-//グローバル変数
-let items = [
-  new Item(
-    "Jack Daniel's",
-    "2000",
-    "https://image.yodobashi.com/product/100/000/001/004/189/903/100000001004189903_10203.jpg"
-  ),
-  new Item(
-    "Jim Beam",
-    "1800",
-    "https://image.yodobashi.com/product/100/000/001/004/190/010/100000001004190010_10203.jpg"
-  ),
-  new Item(
-    "Monster Energy",
-    "200",
-    "https://www.asahiinryo.co.jp/company/newsrelease/2018/image/0807_1_1.jpg"
-  ),
-  new Item(
-    "Red Bull",
-    "220",
-    "https://scdn.line-apps.com/stf/linenews-issue-784/item-654099/ae1f4e93902bcd385cacd3e78b6a4d7e65f9b784.png"
-  ),
-  new Item(
-    "GEORGIA(ジョージア)",
-    "120",
-    "https://askul.c.yimg.jp/img/product/3L1/364158_3L1.jpg"
-  ),
-  new Item(
-    "ワンダ",
-    "110",
-    "https://tshop.r10s.jp/sake-king/cabinet/drink/425.jpg?fitin=300:300"
-  ),
-  new Item(
-    "ボス 贅沢微糖",
-    "130",
-    "https://cdn1.esimg.jp/resize/320x320/image/food/02/15/16/1864483.jpg"
-  ),
-  new Item(
-    "ボス BLACK",
-    "130",
-    "https://www.eatsmart.jp/image/food/02/15/16/962854.jpg"
-  ),
-  new Item(
-    "キリン FIRE",
-    "110",
-    "https://shop.r10s.jp/mashimo/cabinet/pd02/10000775_1.jpg"
-  ),
-];
+let products = [
+  new Product("Jack Daniel's","2000","https://cdn.pixabay.com/photo/2018/03/06/18/00/liquor-3204101_1280.png"),
+  new Product("Jim Beam","1800","https://www.suntory.co.jp/products/pimg/YJBWB_R1_20160826.jpg"),
+  new Product("Monster Energy","200","https://m.media-amazon.com/images/I/71AGNrVcLPL._AC_SY606_.jpg"),
+  new Product("Red Bull","220","https://images-na.ssl-images-amazon.com/images/I/41tTLeInBZL._AC_.jpg"),
+  new Product("GEORGIA(ジョージア)","120","https://askul.c.yimg.jp/img/product/3L1/364158_3L1.jpg"),
+  new Product("ワンダ","110","https://images-na.ssl-images-amazon.com/images/I/71InYwAGo7L._AC_SY606_.jpg"),
+  new Product("ボス 贅沢微糖","130","https://images-na.ssl-images-amazon.com/images/I/71Ef1v6DRVL._AC_SL1447_.jpg"),
+  new Product("ボス BLACK","130","https://www.suntory.co.jp/softdrink/news/l_img/l_sbf0134-1.jpg"),
+  new Product("キリン FIRE","110","https://shop.r10s.jp/mashimo/cabinet/pd02/10000775_1.jpg")
+]
 
-class VendingMachine {
-  //自販機 レイアウト
-    static layout() {
-        let vendingBody = "<div>";
-        vendingBody += `
-            <div class="mt-5 d-flex justify-content-center">
-                <div class="bg-primary p-5 col-10">
-                    <div class="col-5 d-flex">
-                        <div class="bg-secondary p-3 d-flex justify-content-center">
-                            <div id="itemImg" style="width:200px; height:200px" class="bg-dark">
-                            </div>
-                        </div>
-                        <div class="ml-3 col-5">
-                        <div style="width:400px" class="bg-secondary p-2">
-                            <div class="d-flex justify-content-center">
-                                <p style="font-size:30px; color:white" id="itemDate"></p>
-                            </div>
-                            <div class="d-flex">
-                                <div style="font-size:30px; color:white" id="itemNum" class="bg-danger p-3">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <div id="btnNum" class="bg-secondary p-2 mr-5">
-                        </div>
-                    </div>
-                    <div class="ml-2">
-                    <button id="push" style="font-size:20px; color:white; background-color:#a5aab0" class="col-3 p-2 ml-4">
-                        PUSH
-                    </button>
-                </div>
-            </div>
-        </div>
-        `;
-        vendingBody += "</div>";
-        document.getElementById("target").innerHTML = vendingBody;
-    }
-  // ボタン 作成
-    static numBtn() {
-        document.getElementById("itemNum").innerHTML = "1";
-        document.getElementById("itemDate").innerHTML =
-        items[0].name + "<br>" + items[0].price;
-        for (let i = 1; i <= items.length; i++) {
-            let button = document.createElement("button");
-            button.classList.add("btn-primary", "col-3", "m-1", "p-2");
-            button.type = "button";
-            button.style = "font-size:20px";
-            button.id = i;
-            button.innerHTML = i;
-            document.getElementById("btnNum").append(button);
-        }
-        //ボタン メソッド
-        for (let i = 1; i <= items.length; i++) {
-            let itemBtn = document.getElementById(i);
-            itemBtn.addEventListener("click", function() {
-                Slider.itemDate(i);
-                Slider.sliderImg(i);
-            });
-        }
+let target = document.getElementById("target");
 
-        document.getElementById("push").addEventListener("click", function() {
-            let pushBtn = Number(document.getElementById("itemImg").getAttribute("display-num"));
-            alert(items[pushBtn - 1].name +"購入しました！" +"\n" +items[pushBtn - 1].price +"円！");
-        });
-    }
-    //初期画像 配置
-    static itemImg() {
-        document.getElementById("itemImg").setAttribute("display-num", "1");
-        let img = document.createElement("img");
-        img.classList.add("w-100", "h-100");
-        img.src = items[0].img;
-        document.getElementById("itemImg").append(img);
-    }
-}
 
-class Slider {
-    static sliderImg(btnNum) {
-        document.getElementById("itemImg").innerHTML = "";
+let parentDiv = document.createElement("div");;
+target.append(parentDiv);
+parentDiv.classList.add("d-flex","justify-content-center","pt-3","m-2");
 
-        let main = document.createElement("div");
-        main.classList.add("expand-animation");
-        let mainImg = document.createElement("img");
-        mainImg.classList.add("w-100", "h-100");
-        mainImg.src = items[btnNum - 1].img;
-        main.append(mainImg);
+let topDiv = document.createElement("div");
+parentDiv.append(topDiv);
+topDiv.classList.add("bg-primary","p-3","d-flex","align-items-center","w-100","vh-100");
 
-        let extra = document.createElement("div");
-        extra.classList.add("deplete-animation");
-        let extraImg = document.createElement("img");
-        let extraNum = Number(
-            document.getElementById("itemImg").getAttribute("display-num")
-        );
-        extraImg.classList.add("w-100", "h-100");
-        extraImg.src = items[extraNum - 1].img;
-        extra.append(extraImg);
-        document.getElementById("itemImg").setAttribute("display-num", String(btnNum));
+let imgDiv = document.createElement("div");
+topDiv.append(imgDiv);
+imgDiv.style.height = "500px"
+imgDiv.classList.add("m-5","col-5","bg-white","d-flex","justify-content-center")
 
-        if (btnNum > extraNum) {
-            document.getElementById("itemImg").append(main);
-            document.getElementById("itemImg").append(extra);
-        } else if (btnNum < extraNum) {
-            document.getElementById("itemImg").append(extra);
-            document.getElementById("itemImg").append(main);
-        } else {
-            document.getElementById("itemImg").append(mainImg);
-        }
-    }
-
-    static itemDate(btnNum) {
-        document.getElementById("itemNum").innerHTML = btnNum;
-        document.getElementById("itemDate").innerHTML =
-        items[btnNum - 1].name + "<br>" + items[btnNum - 1].price;
+let imgDiv2 = document.createElement("div");
+imgDiv.append(imgDiv2)
+imgDiv2.classList.add("d-none")
+  for (let i=0; i<products.length; i++) {
+       let img = document.createElement("img");
+       img.src = products[i].img
+       img.classList.add("imgDate")
+       imgDiv2.append(img)
   }
+
+let sliderItem = document.querySelectorAll(".imgDate");
+
+let sliderShow = document.createElement("div");
+let main = document.createElement("div")
+let extra = document.createElement("div")
+
+sliderShow.classList.add("d-flex","flex-nowrap","overflow-hiddens")
+imgDiv.append(sliderShow);
+sliderShow.append(main);
+sliderShow.append(extra);
+
+main.append(sliderItem[0]);
+main.setAttribute("data-index","0")
+
+
+let panelDiv = document.createElement("div");
+topDiv.append(panelDiv);
+panelDiv.classList.add("col-5","ml-2","bg-secondary","h-100")
+
+let infoDiv = document.createElement("div");
+panelDiv.append(infoDiv);
+infoDiv.classList.add("d-flex","align-items-start")
+
+let infoLeft = document.createElement("div");
+infoDiv.append(infoLeft);
+infoLeft.classList.add("bg-danger","col-3","mt-5","ml-4","pt-2","d-flex","justify-content-center","num")
+
+let number = document.createElement("h2");
+infoLeft.append(number);
+number.innerHTML = "1"
+number.style.fontSize = "60px"
+number.style.color = "white"
+number.style.height="70px"
+
+let infoRight = document.createElement("div");
+infoDiv.append(infoRight);
+infoRight.classList.add("col-5","ml-5","mt-5","bg-info");
+
+let name = document.createElement("h2")
+let price = document.createElement("h2")
+infoRight.append(name);
+infoRight.append(price);
+name.classList.add("pl-3")
+price.classList.add("pl-3")
+name.innerHTML = products[0].name;
+price.innerHTML = products[0].price+"円";
+
+let buttonDiv = document.createElement("div");
+panelDiv.append(buttonDiv);
+buttonDiv.classList.add("d-flex","flex-wrap","justify-content-around","my-2","mt-5")
+  for (let i=0; i<products.length; i++) {
+      let btn = document.createElement("button");
+      btn.id = "numBtn"
+      btn.style.color = "purple"
+      btn.style.fontSize = "30px"
+      btn.classList.add("btn","btn-warning","col-3","m-2");
+      btn.innerHTML = i+1
+      buttonDiv.append(btn)
+  }
+
+
+let pushBtnDiv = document.createElement("div");
+panelDiv.append(pushBtnDiv);
+pushBtnDiv.classList.add("d-flex","mt-5")
+
+let pushBtn = document.createElement("button");
+pushBtnDiv.append(pushBtn);
+pushBtnDiv.classList.add("d-flex","pushBtn","justify-content-center");
+pushBtn.innerHTML = "PUSH"
+pushBtn.style.width = "300px"
+pushBtn.style.backgroundColor = "rgb(235, 110, 21)"
+pushBtn.style.color = "white"
+
+function sliderMove(nextImg) {
+  let currImg = main.getAttribute("data-index");
+
+  if(currImg == nextImg-1) return;
+
+  main.innerHTML = "";
+  main.append(sliderItem[nextImg-1]);
+
+  extra.innerHTML = "";
+  extra.append(sliderItem[currImg]);
+
+  main.classList.add("expand-animation")
+  extra.classList.add("deplete-animation")
+
+  if (currImg < nextImg) {
+      sliderShow.innerHTML = "";
+      sliderShow.append(extra);
+      sliderShow.append(main);
+  } else {
+      sliderShow.innerHTML = "";
+      sliderShow.append(main);
+      sliderShow.append(extra);
+  }
+      main.setAttribute("data-index",(nextImg-1).toString())
 }
 
-VendingMachine.layout();
-VendingMachine.numBtn();
-VendingMachine.itemImg();
+function updateDate(numBtn) {
+  let items = products[numBtn-1];
+  number.innerHTML = numBtn.toString();
+  name.innerHTML = items.name;
+  price.innerHTML = items.price+"円"
+}
+
+let numBtn = document.querySelectorAll(".btn-warning");
+
+  for (let i=0; i<numBtn.length; i++) {
+      numBtn[i].addEventListener("click",function() {
+          sliderMove(numBtn[i].innerHTML)
+      })
+  }
+
+  for (let i=0; i<numBtn.length; i++) {
+      numBtn[i].addEventListener("click",function() {
+          updateDate(numBtn[i].innerHTML)
+      })
+  }
+
+  pushBtn.addEventListener("click",function() {
+      alert(name.innerHTML + "をお買い上げありがとうございます！")
+  })
