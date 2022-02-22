@@ -13,5 +13,11 @@
 ## Reference
 **<a href='https://vending-machine-two.vercel.app/'>Vending Machineへようこそ</a>**
 
+## Requirement
+ * HTML
+ * CSS
+ * JavaScript
+ * Bootstrap
+
 ## Author
 **<a href="https://github.com/hashiz008">hashiz008</a>**
